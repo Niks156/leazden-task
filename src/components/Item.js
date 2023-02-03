@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import "../App.css";
 
-export default function Item(props) {
-  const { itm } = props;
+export default function Item({ itm }) {
   const [isactive, setisactive] = useState(false);
+
   const handleisactive = () => {
     setisactive(!isactive);
     console.log(isactive);
   };
+
   return (
     <>
       <div className="Accordion-container">
