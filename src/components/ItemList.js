@@ -5,23 +5,24 @@ import Pagination from "./Pagination";
 import "../App.css";
 
 export default function ItemList() {
-  const [items, setitems] = useState([]);
+  const [items, setItems] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemactive, setitemactive] = useState([]);
+  const [itemActive, setitemActive] = useState([]);
   const [itemsPerPage] = useState(4);
 
   useEffect(() => {
     axios
       .get("https://jsonplaceholder.typicode.com/users")
       .then((res) => {
-        setitems(res.data);
+        setItems(res.data);
         return res.data;
       })
       .then((res) => {
+        //Created another empty array which will store the active status of all the individual items
         let itemsStatus = [];
         res.map((r) => {
           itemsStatus.push(false);
-          setitemactive(itemsStatus);
+          setitemActive(itemsStatus); //Now, the itemactive array will have 10 false.
           return null;
         });
       });
@@ -42,8 +43,8 @@ export default function ItemList() {
             <Item
               itm={itm}
               id={itm.id}
-              itemactive={itemactive}
-              setitemactive={setitemactive}
+              itemActive={itemActive}
+              setitemActive={setitemActive}
               key={itm.id}
             />
           );

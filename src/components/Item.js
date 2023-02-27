@@ -1,15 +1,19 @@
 import React, { useState } from "react";
 import "../App.css";
 
-export default function Item({ itm, setitemactive, itemactive, id }) {
-  const [val, setval] = useState(itemactive[id - 1]);
+export default function Item({ itm, setitemActive, itemActive, id }) {
+  // val is used to conditionally render accordian content.
+  const [val, setval] = useState(itemActive[id - 1]);
+  // Usestate is neccessary for the component to re-render
+
   const handleid = () => {
-    let newarray = itemactive;
-    newarray[id - 1] = !newarray[id - 1];
-    setitemactive(newarray);
+    let newarray = itemActive;
+    newarray[id - 1] = !newarray[id - 1]; // Current element's value will be inversed
+    setitemActive(newarray);
     setval(newarray[id - 1]);
-    console.log(itemactive[id - 1]);
+    // console.log(itemActive[id - 1]);
   };
+
   return (
     <>
       <div className="Accordion-container">
