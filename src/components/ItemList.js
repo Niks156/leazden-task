@@ -22,6 +22,7 @@ export default function ItemList() {
         res.map((r) => {
           itemsStatus.push(false);
           setitemactive(itemsStatus);
+          return null;
         });
       });
   }, []);
