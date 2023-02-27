@@ -7,14 +7,23 @@ import "../App.css";
 export default function ItemList() {
   const [items, setitems] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemactive, setitemactive] = useState(false);
-  const [currentactiveid, setcurrentactiveid] = useState(null);
+  const [itemactive, setitemactive] = useState([]);
   const [itemsPerPage] = useState(4);
 
   useEffect(() => {
     axios
       .get("https://jsonplaceholder.typicode.com/users")
-      .then((res) => setitems(res.data));
+      .then((res) => {
+        setitems(res.data);
+        return res.data;
+      })
+      .then((res) => {
+        let itemsStatus = [];
+        res.map((r) => {
+          itemsStatus.push(false);
+          setitemactive(itemsStatus);
+        });
+      });
   }, []);
 
   // Get current items
@@ -24,10 +33,6 @@ export default function ItemList() {
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  const setid = (c_id) => {
-    setcurrentactiveid(c_id);
-  };
-
   return (
     <>
       <div className="Accordion-List">
@@ -35,11 +40,9 @@ export default function ItemList() {
           return (
             <Item
               itm={itm}
-              setitemactive={setitemactive}
+              id={itm.id}
               itemactive={itemactive}
-              currentactiveid = {currentactiveid}
-              id = {itm.id}
-              setid = {setid}
+              setitemactive={setitemactive}
               key={itm.id}
             />
           );

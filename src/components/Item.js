@@ -1,19 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import "../App.css";
 
-export default function Item({ itm, setitemactive, itemactive, id, currentactiveid, setid }) {
+export default function Item({ itm, setitemactive, itemactive, id }) {
+  const [val, setval] = useState(itemactive[id - 1]);
   const handleid = () => {
-    setid(id);
-    handleisactive();
+    let newarray = itemactive;
+    newarray[id - 1] = !newarray[id - 1];
+    setitemactive(newarray);
+    setval(newarray[id - 1]);
+    console.log(itemactive[id - 1]);
   };
-  
-  const handleisactive = () => {
-    if(id === currentactiveid){
-      console.log(currentactiveid);
-      setitemactive(!itemactive);
-    }
-  };
-
   return (
     <>
       <div className="Accordion-container">
@@ -32,10 +28,10 @@ export default function Item({ itm, setitemactive, itemactive, id, currentactive
             {itm.address.street}
           </div>
           <button className="btn" onClick={handleid}>
-            {itemactive ? "Hide Details" : "Show Details"}
+            {val ? "Hide Details" : "Show Details"}
           </button>
         </div>
-        {itemactive && (
+        {val && (
           <div className="Accordian-Content">
             <div className="acc-description">
               <h3>Description</h3>
