@@ -7,6 +7,8 @@ import "../App.css";
 export default function ItemList() {
   const [items, setitems] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [itemactive, setitemactive] = useState(false);
+  const [currentactiveid, setcurrentactiveid] = useState(null);
   const [itemsPerPage] = useState(4);
 
   useEffect(() => {
@@ -22,11 +24,25 @@ export default function ItemList() {
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+  const setid = (c_id) => {
+    setcurrentactiveid(c_id);
+  };
+
   return (
     <>
       <div className="Accordion-List">
         {currentitems.map((itm) => {
-          return <Item itm={itm} key={itm.id} />;
+          return (
+            <Item
+              itm={itm}
+              setitemactive={setitemactive}
+              itemactive={itemactive}
+              currentactiveid = {currentactiveid}
+              id = {itm.id}
+              setid = {setid}
+              key={itm.id}
+            />
+          );
         })}
       </div>
       <Pagination

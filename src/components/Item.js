@@ -1,12 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import "../App.css";
 
-export default function Item({ itm }) {
-  const [isactive, setisactive] = useState(false);
-
+export default function Item({ itm, setitemactive, itemactive, id, currentactiveid, setid }) {
+  const handleid = () => {
+    setid(id);
+    handleisactive();
+  };
+  
   const handleisactive = () => {
-    setisactive(!isactive);
-    console.log(isactive);
+    if(id === currentactiveid){
+      console.log(currentactiveid);
+      setitemactive(!itemactive);
+    }
   };
 
   return (
@@ -26,11 +31,11 @@ export default function Item({ itm }) {
             <h3>STREET</h3>
             {itm.address.street}
           </div>
-          <button className="btn" onClick={handleisactive}>
-            {isactive ? "Hide Details" : "Show Details"}
+          <button className="btn" onClick={handleid}>
+            {itemactive ? "Hide Details" : "Show Details"}
           </button>
         </div>
-        {isactive && (
+        {itemactive && (
           <div className="Accordian-Content">
             <div className="acc-description">
               <h3>Description</h3>
